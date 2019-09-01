@@ -55,7 +55,7 @@ DHT11.prototype.read = function (cb) {
 	// We are watching for changes, and if change is > 50us we assume it's a 1. This is how we build our buffer.
   
 	// This also means that the whole transfer should be done within a minimum of 54+80+(54+70)*40=5096us which is 5.096ms
-	// We also need to consder the 20 ms we spend sending
+	// We also need to consider the 20 ms we spend sending start signal to device.
 	// So in theory it is safe to read back after 25.096 ms. Lets say 30ms to allow for delays.
   
 	setTimeout(function() {
