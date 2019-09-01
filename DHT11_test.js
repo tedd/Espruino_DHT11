@@ -1,4 +1,3 @@
-var exports = {};
 /* Copyright (c) 2014 Your Name. See the file LICENSE for copying permission. */
 /*
 Quick description of my module...
@@ -23,7 +22,7 @@ var ht={};
 function DHT11read(pin, cb, n) {
   if (!n) n=10;
   var d = "";
-  console.log("pin");
+//  console.log(pin);
 //  var ht = this;
   digitalWrite(pin, 0);
   pinMode(pin,"output"); // force pin state to output
@@ -49,7 +48,7 @@ function DHT11read(pin, cb, n) {
       });
     } else {
       //if (n>1) setTimeout(function() {ht.read(cb,--n);},500);
-      if (n>1) setTimeout(function() {DHT11read(cb,--n);},500);
+      if (n>1) setTimeout(function() {DHT11read(pin, cb,--n);},500);
       else cb({err:true, checksumError:cks>0, raw:d, temp:-1, rh:-1});
     }
   }, 50);
