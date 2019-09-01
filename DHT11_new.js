@@ -15,8 +15,8 @@ function DHT11(pin) {
   
 	// Read change on input pin and store in buffer
 	this.watch = setWatch(function(t) {
-	if (self.d.length <= 60) // Make sure we don't keep going if no read is happening
-		self.d += 0 | (t.time - t.lastTime > 0.00005);
+		if (self.d.length <= 42) // Make sure we don't keep going in case of failure (i.e. incorrect pin, so some other device is spamming us with signals)
+			self.d += 0 | (t.time - t.lastTime > 0.00005);
 	}, self.pin, { edge: 'falling', repeat: true } );
 }
 
@@ -60,8 +60,8 @@ DHT11.prototype.read = function (cb) {
   
 	setTimeout(function() {
 		// Return data (assuming all is well)
-		// We ignore the two first bytes (indicating start of stream), since we do checksum verification anyway
-		var h = self.d.substr(1,1);				 	// Header, always "1"
+		// Two first bytes are header. First is 0 on first, 1 on consecutive. Second is always 1.
+		var h = self.d.substr(1,1);				 	// Header, always "1" - we'll include this in checksum test
 		var rh = parseInt(self.d.substr(2,8),2);	// Relative humidity
 		var rhf = parseInt(self.d.substr(10,8),2);  // Relative humidity fraction
 		var t = parseInt(self.d.substr(18,8),2);	// Temperature
