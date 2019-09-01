@@ -79,7 +79,8 @@ DHT11.prototype.read = function (cb) {
 			cb({
 				temp: t + "." + tf,
 				th: rh + "." + rhf,
-				raw: self.d
+				// We usually don't need raw data here, uncomment if you do
+				// raw: self.d
 			});
 			return;
 		}
