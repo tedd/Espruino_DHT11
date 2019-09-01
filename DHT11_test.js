@@ -10,7 +10,7 @@ function DHT11(pin) {
 
 /** 'public' constants here */
 DHT11.prototype.read = function(cb, n) {
-DHT11read(cb,n);
+DHT11read(this.pin, cb,n);
 };
 
 /** This is 'exported' so it can be used with `require('MOD123.js').connect(pin1,pin2)` */
@@ -19,19 +19,20 @@ exports.connect = function (pin) {
 };
 
 
-var ht={pin: D27};
-function DHT11read(cb, n) {
+var ht={};
+function DHT11read(pin, cb, n) {
   if (!n) n=10;
   var d = "";
+  console.log("pin");
 //  var ht = this;
-  digitalWrite(ht.pin, 0);
-  pinMode(ht.pin,"output"); // force pin state to output
+  digitalWrite(pin, 0);
+  pinMode(pin,"output"); // force pin state to output
   // start watching for state change
   this.watch = setWatch(function(t) {
     d+=0|(t.time-t.lastTime>0.00005);
-  }, ht.pin, {edge:'falling',repeat:true} );
+  }, pin, {edge:'falling',repeat:true} );
   // raise pulse after 1ms
-  setTimeout(function() {pinMode(ht.pin,'input_pullup');pinMode(ht.pin);},20);
+  setTimeout(function() {pinMode(pin,'input_pullup');pinMode(pin);},20);
   // stop looking after 50ms
   setTimeout(function() {
     if(ht.watch){ ht.watch = clearWatch(ht.watch); }
