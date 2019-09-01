@@ -74,11 +74,11 @@ DHT11.prototype.read = function (cb) {
 		// Check checksum:
 		// - It is not zero (temp and humidity exactly zero?)
 		// - Sum all data, compare last byte to checksum byte
-		if (h == "1" && cks &&((cks&0xFF)==csum)) {
+		if (h == "1" && cks && ((cks & 0xFF) == csum)) {
 			// Success, return data
 			cb({
-				temp: t + "." + tf,
-				th: rh + "." + rhf,
+				temp: parseFloat(t + "." + tf),
+				rh: parseFloat(rh + "." + rhf),
 				// We usually don't need raw data here, uncomment if you do
 				// raw: self.d
 			});
