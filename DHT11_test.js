@@ -83,6 +83,6 @@ DHT11.prototype.read = function (cb) {
     }
 
 	// Checksum error
-    cb({err:true, checksumError:cks>0, raw:self.d, temp:-1, rh:-1});
+    cb({checksumError:true, raw:self.d, temp:-1, rh:-1});
   }, 30);
 };
