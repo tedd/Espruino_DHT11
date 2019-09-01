@@ -1,6 +1,6 @@
 /* 
 	Copyright (c) 2019 Tedd Hansen. See the file LICENSE for copying permission. 
-   Based on work by Spence Konde.
+	Based on work by Spence Konde.
 */
 
 /*
